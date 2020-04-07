@@ -1,0 +1,107 @@
+{
+  "name": "webservice",
+  "version": "0.1.0",
+  "description": "WebServices Electron",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "distW32": "electron-builder --ia32 -w",
+    "distW64": "electron-builder --x64 -w",
+    "rebuild": "electron-rebuild -f -w sqlite3"
+  },
+  "author": "Rodrigo <rteodoro@i2.com.br>",
+  "license": "ISC",
+  "homepage": "https://i2.com.br",
+  "priority": "standard",
+  "build": {
+    "appId": "br.com.i2.webservice",
+    "productName": "WebServices",
+    "generateUpdatesFilesForAllChannels": true,
+    "files": [
+      "!update/**"
+    ],
+    "extraFiles": [
+      "dados/**",
+      "public/**"
+    ],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1:5000/"
+      }
+    ],
+    "win": {
+      "requestedExecutionLevel": "highestAvailable",
+      "target": [
+        {
+          "target": "NSIS",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "img/icon.png"
+    },
+    "linux": {
+      "artifactName": "${productName}_instalador_${version}.${ext}",
+      "target": [
+        {
+          "target": "AppImage"
+        },
+        {
+          "target": "deb",
+          "arch": "x64"
+        }
+      ],
+      "icon": "img/icon.png",
+      "category": "Utils",
+      "packageCategory": "utils",
+      "synopsis": "WebServices"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "perMachine": true,
+      "shortcutName": "WebServices",
+      "artifactName": "${productName}_instalador_${version}.${ext}"
+    },
+    "deb": {
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
+      ],
+      "artifactName": "WebServices_instalador_${version}.${ext}"
+    }
+  },
+  "dependencies": {
+    "better-sqlite3": "^6.0.1",
+    "body-parser": "^1.19.0",
+    "bspec": "^1.0.1",
+    "electron-is-dev": "^1.1.0",
+    "electron-log": "^3.0.6",
+    "electron-updater": "^4.1.2",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "knex": "^0.19.1",
+    "module-id": "^2.0.6",
+    "rules-js": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron": "^5.0.6",
+    "electron-builder": "^20.44.4",
+    "electron-rebuild": "^1.8.5",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1"
+  }
+}
